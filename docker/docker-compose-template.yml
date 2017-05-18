@@ -1,0 +1,11 @@
+version: '3'
+services:
+
+  applicationOne:
+      image: @group@/application1:@version@
+      ports:
+        - "8081:8080"
+  applicationTwo:
+      image: @group@/application2:@version@
+      ports:
+        - "8082:8080"

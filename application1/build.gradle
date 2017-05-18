@@ -1,0 +1,10 @@
+project.ext {
+    applicationName = "application1"
+}
+jar {
+    baseName = project.applicationName
+}
+prepareDockerFile.applicationName = project.applicationName
+buildDocker.applicationName = project.applicationName
+
+

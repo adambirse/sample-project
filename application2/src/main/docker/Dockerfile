@@ -1,0 +1,10 @@
+FROM davidcaste/alpine-java-unlimited-jce:jdk8
+EXPOSE 8000
+EXPOSE 8080
+
+ENV JAVA_OPTS -Xmx300m
+ENV JMX_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8001 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
+
+ADD application2-1.0.0-SNAPSHOT.jar app.jar
+
+ENTRYPOINT exec java $JAVA_OPTS $JMX_OPTS -jar app.jar
