@@ -4,7 +4,6 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'docker'
 
     sourceCompatibility = 1.8
 }
@@ -14,60 +13,64 @@ build.enabled = false;
 jar.enabled = false;
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '3.3'
-  distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+    gradleVersion = '3.3'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
 
 subprojects {
+
     apply plugin: 'org.springframework.boot'
+    apply plugin: 'docker'
+
+        task prepareDockerFile(type: Copy) {
+
+            ext.applicationName = 'default-service-name'
+            outputs.upToDateWhen { false }
+            from '../docker/'
+            into 'src/main/docker/'
+            include 'Dockerfile-template'
+            rename 'Dockerfile-template', 'Dockerfile'
+            filter {
+                it.replaceAll('@version@', project.properties['version']).replaceAll('@app_name@', project.properties['applicationName'])
+            }
+        }
+
+        task buildDocker(type: Docker, dependsOn: build) {
+            push = false
+            applicationName = 'default-service-name'
+            dockerfile = file('src/main/docker/Dockerfile')
+            doFirst {
+                copy {
+                    from jar
+                    into stageDir
+                }
+            }
+        }
+
+        buildDocker.dependsOn prepareDockerFile
 
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-web")
+        testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 
     repositories {
         mavenCentral()
     }
 
-    task prepareDockerFile(type: Copy) {
-
-        ext.applicationName = 'default-service-name'
-        outputs.upToDateWhen { false }
-        from '../docker/'
-        into 'src/main/docker/'
-        include 'Dockerfile-template'
-        rename 'Dockerfile-template', 'Dockerfile'
-        filter {
-            it.replaceAll('@version@', project.properties['version']).replaceAll('@app_name@', project.properties['applicationName'])
-        }
-    }
-
-    task buildDocker(type: Docker, dependsOn: build) {
-        push = false
-        applicationName = 'default-service-name'
-        dockerfile = file('src/main/docker/Dockerfile')
-        doFirst {
-            copy {
-                from jar
-                into stageDir
-            }
-        }
-    }
-    buildDocker.dependsOn prepareDockerFile
-
     processResources {
         expand project.properties
     }
-}
 
+}
 
 buildscript {
 
     ext {
-        springBootVersion ='1.5.3.RELEASE'
-        dockerComposeVersion='0.3.27'
-        dockerBuildVersion='1.2'
+        springBootVersion = '1.5.3.RELEASE'
+        dockerComposeVersion = '0.3.27'
+        dockerBuildVersion = '1.2'
     }
 
     repositories {
@@ -85,7 +88,7 @@ buildscript {
 apply plugin: 'docker-compose'
 
 dockerCompose {
-    useComposeFiles = ['docker/generated/docker-compose.yml', 'docker/generated/docker-compose-dev.yml' ]
+    useComposeFiles = ['docker/generated/docker-compose.yml', 'docker/generated/docker-compose-dev.yml']
     removeContainers = false
     removeImages = "Local"
     removeVolumes = false
@@ -94,22 +97,22 @@ dockerCompose {
 
 import org.apache.tools.ant.filters.*
 
-task prepareComposeFile (type: Copy) {
+task prepareComposeFile(type: Copy) {
     outputs.upToDateWhen { false }
     from 'docker'
     into 'docker/generated'
     include 'docker-compose-template.yml'
     rename 'docker-compose-template.yml', 'docker-compose.yml'
-    filter(ReplaceTokens, tokens: [version : project.properties['version'], group: project.properties['group']])
+    filter(ReplaceTokens, tokens: [version: project.properties['version'], group: project.properties['group']])
 }
 
-task prepareComposeDevFile (type: Copy) {
+task prepareComposeDevFile(type: Copy) {
     outputs.upToDateWhen { false }
     from 'docker'
     into 'docker/generated'
     include 'docker-compose-dev-template.yml'
     rename 'docker-compose-dev-template.yml', 'docker-compose-dev.yml'
-    filter(ReplaceTokens, tokens: [version : project.properties['version'], group: project.properties['group']])
+    filter(ReplaceTokens, tokens: [version: project.properties['version'], group: project.properties['group']])
 }
 
 composeUp.dependsOn prepareComposeFile
