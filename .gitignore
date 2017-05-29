@@ -67,3 +67,4 @@ $RECYCLE.BIN/
 **/build
 
 docker/generated/*
+/out/
