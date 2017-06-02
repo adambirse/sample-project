@@ -1,5 +1,0 @@
-version: '3'
-services:
-
-  applicationOne:
-      image: com.birse/application1:1.0-SNAPSHOT
