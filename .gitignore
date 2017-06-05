@@ -68,3 +68,4 @@ $RECYCLE.BIN/
 
 docker/generated/*
 /out/
+!/gradle/wrapper/gradle-wrapper.jar
