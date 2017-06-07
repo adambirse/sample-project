@@ -9,3 +9,7 @@ services:
       image: @group@/application2:@version@
       ports:
         - "8082:8080"
+  data-service:
+      image: @group@/data-service:@version@
+      ports:
+        - "8083:8080"
