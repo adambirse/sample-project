@@ -1,0 +1,15 @@
+project.ext {
+    applicationName = "web-server"
+}
+jar {
+    baseName = project.applicationName
+}
+prepareDockerFile.applicationName = project.applicationName
+buildDocker.applicationName = project.applicationName
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.webjars:bootstrap:3.3.7")
+}
+

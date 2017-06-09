@@ -69,6 +69,4 @@ $RECYCLE.BIN/
 docker/generated/*
 /out/
 !/gradle/wrapper/gradle-wrapper.jar
-/application2/src/main/docker/Dockerfile
-/application1/src/main/docker/Dockerfile
-/data-service/src/main/docker/Dockerfile
+**/src/main/docker/**

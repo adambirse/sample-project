@@ -13,3 +13,7 @@ services:
       image: @group@/data-service:@version@
       ports:
         - "8083:8080"
+  web-service:
+      image: @group@/web-server:@version@
+      ports:
+        - "8084:8080"
