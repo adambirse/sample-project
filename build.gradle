@@ -4,8 +4,8 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'idea'
-
     sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }
 
 ext.database_name = 'sample'
@@ -27,33 +27,43 @@ subprojects {
 
     apply plugin: 'org.springframework.boot'
     apply plugin: 'docker'
+    apply plugin: 'jacoco'
 
-        task prepareDockerFile(type: Copy) {
+    task prepareDockerFile(type: Copy) {
 
-            ext.applicationName = 'default-service-name'
-            outputs.upToDateWhen { false }
-            from '../docker/'
-            into 'src/main/docker/'
-            include 'Dockerfile-template'
-            rename 'Dockerfile-template', 'Dockerfile'
-            filter {
-                it.replaceAll('@version@', project.properties['version']).replaceAll('@app_name@', project.properties['applicationName'])
+        ext.applicationName = 'default-service-name'
+        outputs.upToDateWhen { false }
+        from '../docker/'
+        into 'src/main/docker/'
+        include 'Dockerfile-template'
+        rename 'Dockerfile-template', 'Dockerfile'
+        filter {
+            it.replaceAll('@version@', project.properties['version']).replaceAll('@app_name@', project.properties['applicationName'])
+        }
+    }
+
+    task buildDocker(type: Docker, dependsOn: build) {
+        push = false
+        applicationName = 'default-service-name'
+        dockerfile = file('src/main/docker/Dockerfile')
+        doFirst {
+            copy {
+                from jar
+                into stageDir
             }
         }
+    }
 
-        task buildDocker(type: Docker, dependsOn: build) {
-            push = false
-            applicationName = 'default-service-name'
-            dockerfile = file('src/main/docker/Dockerfile')
-            doFirst {
-                copy {
-                    from jar
-                    into stageDir
-                }
-            }
+    buildDocker.dependsOn prepareDockerFile
+
+    jacocoTestReport {
+        reports {
+            xml.enabled = true
+            html.enabled = true
         }
+    }
 
-        buildDocker.dependsOn prepareDockerFile
+    check.dependsOn jacocoTestReport
 
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-web")
@@ -98,6 +108,7 @@ buildscript {
 
 apply plugin: 'docker-compose'
 
+
 dockerCompose {
     useComposeFiles = ['docker/generated/docker-compose.yml', 'docker/generated/docker-compose-dev.yml']
     removeContainers = false
@@ -106,7 +117,7 @@ dockerCompose {
 
 }
 
-import org.apache.tools.ant.filters.*
+import org.apache.tools.ant.filters.ReplaceTokens
 
 task prepareComposeFile(type: Copy) {
     outputs.upToDateWhen { false }
@@ -124,7 +135,7 @@ task prepareComposeDevFile(type: Copy) {
     include 'docker-compose-dev-template.yml'
     rename 'docker-compose-dev-template.yml', 'docker-compose-dev.yml'
     filter(ReplaceTokens, tokens: [
-            database_name: project.properties['database_name'],
+            database_name    : project.properties['database_name'],
             database_password: project.properties['database_password']
     ])
 }
@@ -132,8 +143,7 @@ task prepareComposeDevFile(type: Copy) {
 composeUp.dependsOn prepareComposeFile
 composeUp.dependsOn prepareComposeDevFile
 
+
 repositories {
     mavenCentral()
 }
-
-
