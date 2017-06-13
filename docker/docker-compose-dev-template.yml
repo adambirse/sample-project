@@ -1,19 +1,13 @@
 version: '3'
 services:
 
-  applicationOne:
-      hostname: applicationOne
+  person-service:
+      hostname: person-service
       ports:
         - "9001:8000"
       environment:
         - JAVA_OPTS=-Xmx150m -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n
-  applicationTwo:
-      hostname: applicationTwo
-      ports:
-        - "9002:8000"
-      environment:
-        - JAVA_OPTS=-Xmx150m -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n
-  data-service:
+  person-data-service:
       links:
         - mysql:database
   mysql:

@@ -1,6 +1,5 @@
 rootProject.name = 'spring'
-include 'application1'
-include 'application2'
-include 'data-service'
+include 'person-service'
+include 'person-data-service'
 include 'web-server'
 
