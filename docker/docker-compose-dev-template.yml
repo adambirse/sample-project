@@ -10,6 +10,11 @@ services:
   person-data-service:
       links:
         - mysql:database
+  admin:
+      image: enmobile/docker-spring-boot-admin
+      hostname: admin
+      ports:
+      - "3001:8123"
   mysql:
       image: mysql:8.0.1
       hostname: database
