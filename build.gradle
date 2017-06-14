@@ -89,8 +89,8 @@ subprojects {
 buildscript {
 
     ext {
-        springBootVersion = '1.5.3.RELEASE'
-        dockerComposeVersion = '0.3.27'
+        springBootVersion = '1.5.4.RELEASE'
+        dockerComposeVersion = '0.4.3'
         dockerBuildVersion = '1.2'
     }
 
@@ -102,12 +102,13 @@ buildscript {
         classpath "com.avast.gradle:docker-compose-gradle-plugin:$dockerComposeVersion"
         classpath "se.transmode.gradle:gradle-docker:$dockerBuildVersion"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
     }
 
 }
 
 apply plugin: 'docker-compose'
-
+apply plugin: 'com.github.ben-manes.versions'
 
 dockerCompose {
     useComposeFiles = ['docker/generated/docker-compose.yml', 'docker/generated/docker-compose-dev.yml']
