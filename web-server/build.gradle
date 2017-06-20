@@ -9,7 +9,9 @@ buildDocker.applicationName = project.applicationName
 
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.webjars:bootstrap:3.3.7")
+    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+    compile "org.webjars:bootstrap:3.3.7"
+    compile "org.springframework.cloud:spring-cloud-starter-eureka"
 }
+
 

@@ -2,4 +2,5 @@ rootProject.name = 'spring'
 include 'person-service'
 include 'person-data-service'
 include 'web-server'
+include 'discovery-service'
 

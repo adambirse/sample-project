@@ -4,6 +4,10 @@ services:
       image: @group@/person-service:@version@
   person-data-service:
       image: @group@/person-data-service:@version@
+  discovery-service:
+      image: @group@/discovery-service:@version@
+      ports:
+        - "8761:8761"
   web-service:
       image: @group@/web-server:@version@
       ports:

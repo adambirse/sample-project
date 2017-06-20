@@ -1,5 +1,5 @@
 project.ext {
-    applicationName = person_service_name
+    applicationName = discovery_service_name
 }
 jar {
     baseName = project.applicationName
@@ -8,7 +8,5 @@ prepareDockerFile.applicationName = project.applicationName
 buildDocker.applicationName = project.applicationName
 
 dependencies {
-    compile "org.springframework.cloud:spring-cloud-starter-eureka"
+    compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
 }
-
-

@@ -1,5 +1,6 @@
 package com.birse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
@@ -8,7 +9,8 @@ import org.springframework.web.client.RestTemplate;
  */
 public abstract class BaseService {
 
-    protected RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    protected RestTemplate restTemplate;
 
     @Value("${person.service.url}")
     private String serviceName;

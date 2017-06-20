@@ -13,7 +13,7 @@ import java.util.List;
 public class PersonController extends BaseController {
 
     @GetMapping
-    public ResponseEntity<List<PersonResource>> sayHello() {
+    public ResponseEntity<List<PersonResource>> people() {
         return restTemplate.exchange(getBaseUrl() + "/person/all",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<PersonResource>>() {
                 });
