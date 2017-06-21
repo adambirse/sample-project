@@ -4,18 +4,21 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 /**
  * Created on 08/06/2017.
  */
+
 public class HomeControllerTest {
 
     HomeController controller;
 
     @Before
-    public void setup() {controller = new HomeController();}
+    public void setup() {
+        controller = new HomeController();
+    }
 
     @Test
     public void checkCorrectPageReturned() {
