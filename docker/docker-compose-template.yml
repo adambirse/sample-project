@@ -2,8 +2,12 @@ version: '3'
 services:
   person-service:
       image: @group@/person-service:@version@
+      environment:
+        - JAVA_OPTS= -Xmx200m
   person-data-service:
       image: @group@/person-data-service:@version@
+      environment:
+        - JAVA_OPTS= -Xmx200m
   discovery-service:
       image: @group@/discovery-service:@version@
       ports:
@@ -12,3 +16,5 @@ services:
       image: @group@/web-server:@version@
       ports:
         - "80:8080"
+      environment:
+        - JAVA_OPTS= -Xmx200m

@@ -5,7 +5,7 @@ services:
       ports:
         - "9001:8000"
       environment:
-        - JAVA_OPTS=-Xmx150m -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n
+        - JAVA_OPTS=-Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n
   person-data-service:
       links:
         - mysql:database
