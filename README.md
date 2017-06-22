@@ -10,6 +10,7 @@ In addition it adds features to aid in the development of a production grade pro
 - Dependency checking
 - Test coverage
 - Support for flyway
+- OWASP dependency check
 
 ## Architecture
 
@@ -34,6 +35,7 @@ The following tasks have been added to gradle:
 - _dependencyUpdates_ Generates a report of dependencies to be updated. See [Gradle versions plugin](https://github.com/ben-manes/gradle-versions-plugin) for full details
 - _composeUp_  and _composeDown_ provide docker compose integration.  See  [Docker compose plugin](https://github.com/avast/docker-compose-gradle-plugin)
 - Flyway support provided by [Flyway plugin](https://flywaydb.org/documentation/gradle/)
+- _dependencyCheck_ OWASP dependency checking provided by [Dependency Check](https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/)
 
 
 As this project evolves I aim to add the following:

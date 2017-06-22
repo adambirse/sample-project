@@ -29,6 +29,7 @@ subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'docker'
     apply plugin: 'jacoco'
+    apply plugin: 'org.owasp.dependencycheck'
 
     task prepareDockerFile(type: Copy) {
 
@@ -103,6 +104,8 @@ buildscript {
         springBootVersion = '1.5.4.RELEASE'
         dockerComposeVersion = '0.4.3'
         dockerBuildVersion = '1.2'
+        owaspVersion = '1.4.5'
+        dependencyCheckVersion = '0.15.0'
     }
 
     repositories {
@@ -113,13 +116,15 @@ buildscript {
         classpath "com.avast.gradle:docker-compose-gradle-plugin:$dockerComposeVersion"
         classpath "se.transmode.gradle:gradle-docker:$dockerBuildVersion"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        classpath "com.github.ben-manes:gradle-versions-plugin:$dependencyCheckVersion"
+        classpath "org.owasp:dependency-check-gradle:$owaspVersion"
     }
 
 }
 
 apply plugin: 'docker-compose'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'org.owasp.dependencycheck'
 
 dockerCompose {
     useComposeFiles = ['docker/generated/docker-compose.yml', 'docker/generated/docker-compose-dev.yml']
