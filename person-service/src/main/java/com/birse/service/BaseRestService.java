@@ -1,13 +1,11 @@
-package com.birse;
+package com.birse.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * Created on 09/06/2017.
- */
-public abstract class BaseController {
+
+public abstract class BaseRestService {
 
     @Autowired
     protected RestTemplate restTemplate;

@@ -30,6 +30,14 @@ subprojects {
     apply plugin: 'docker'
     apply plugin: 'jacoco'
     apply plugin: 'org.owasp.dependencycheck'
+    apply plugin: 'org.asciidoctor.convert'
+
+    asciidoctor {
+        sourceDir 'src/main/asciidoc'
+        attributes \
+      'snippets': file('build/snippets')
+    }
+
 
     task prepareDockerFile(type: Copy) {
 
@@ -106,6 +114,7 @@ buildscript {
         dockerBuildVersion = '1.2'
         owaspVersion = '1.4.5'
         dependencyCheckVersion = '0.15.0'
+        asciiDoctorVersion = '1.5.3'
     }
 
     repositories {
@@ -118,6 +127,7 @@ buildscript {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
         classpath "com.github.ben-manes:gradle-versions-plugin:$dependencyCheckVersion"
         classpath "org.owasp:dependency-check-gradle:$owaspVersion"
+        classpath "org.asciidoctor:asciidoctor-gradle-plugin:$asciiDoctorVersion"
     }
 
 }

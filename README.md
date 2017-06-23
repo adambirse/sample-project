@@ -11,6 +11,7 @@ In addition it adds features to aid in the development of a production grade pro
 - Test coverage
 - Support for flyway
 - OWASP dependency check
+- Rest documentation
 
 ## Architecture
 
@@ -36,14 +37,13 @@ The following tasks have been added to gradle:
 - _composeUp_  and _composeDown_ provide docker compose integration.  See  [Docker compose plugin](https://github.com/avast/docker-compose-gradle-plugin)
 - Flyway support provided by [Flyway plugin](https://flywaydb.org/documentation/gradle/)
 - _dependencyCheck_ OWASP dependency checking provided by [Dependency Check](https://jeremylong.github.io/DependencyCheck/dependency-check-gradle/)
-
+- _asciidoctor_ for generating rest documentation using spring-rest-docs.  See [Ascii Doctor](http://asciidoctor.org/docs/asciidoctor-gradle-plugin/) for details.
 
 As this project evolves I aim to add the following:
 
 - Unit and Integration testing
 - Selenium testing
 - Non java/spring applications
-- Rest documentation.
 - Anything else that might be useful for those starting a new project.
 
 Please feel free to get in touch and to make contributions.

@@ -12,8 +12,9 @@ public class PersonController {
 
 
     @GetMapping(path = "/add")
-    public @ResponseBody String addNewUser(@RequestParam String firstName,
-                                           @RequestParam String lastName) {
+    public @ResponseBody
+    String addNewUser(@RequestParam String firstName,
+                      @RequestParam String lastName) {
 
         Person p = new Person();
         p.setFirstName(firstName);
