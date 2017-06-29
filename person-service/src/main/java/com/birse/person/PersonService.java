@@ -12,7 +12,7 @@ import java.util.List;
 public class PersonService extends BaseRestService {
 
     public ResponseEntity<List<PersonResource>> getPeople() {
-        return restTemplate.exchange(getBaseUrl() + "/person/all",
+        return restTemplate.exchange(getBaseUrl() + "/person",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<PersonResource>>() {
                 });
     }

@@ -1,18 +1,20 @@
 ext {
     applicationName = person_data_service_name
-    schema=database_name
+    schema = database_name
     datasourceHost = "database"
     datasourcePort = "3306"
-    datasourceUsername="root"
-    datasourcePassword=database_password
-    datasourceUrl="jdbc:mysql://${datasourceHost}:${datasourcePort}/${schema}"
-    migrations="db/migration,db/testdata"
-    flywayVersion="4.2.0"
+    datasourceUsername = "root"
+    datasourcePassword = database_password
+    datasourceUrl = "jdbc:mysql://${datasourceHost}:${datasourcePort}/${schema}"
+    migrations = "db/migration,db/testdata"
+    flywayVersion = "4.2.0"
 }
 
 jar {
     baseName = applicationName
+
 }
+
 prepareDockerFile.applicationName = applicationName
 buildDocker.applicationName = applicationName
 
@@ -33,11 +35,11 @@ buildscript {
 apply plugin: 'flyway'
 
 
-project.ext['flyway.url']="jdbc:mysql://192.168.99.100:${datasourcePort}/${schema}"
-project.ext['flyway.schemas']=schema
-project.ext['flyway.user']=datasourceUsername
-project.ext['flyway.password']=datasourcePassword
-project.ext['flyway.locations']=migrations
+project.ext['flyway.url'] = "jdbc:mysql://192.168.99.100:${datasourcePort}/${schema}"
+project.ext['flyway.schemas'] = schema
+project.ext['flyway.user'] = datasourceUsername
+project.ext['flyway.password'] = datasourcePassword
+project.ext['flyway.locations'] = migrations
 
 
 
@@ -47,5 +49,4 @@ dependencies {
     compile "mysql:mysql-connector-java"
     compile "org.springframework.cloud:spring-cloud-starter-eureka"
     testCompile "com.h2database:h2:1.4.196"
-
 }
