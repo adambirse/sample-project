@@ -8,11 +8,21 @@ ext {
     datasourceUrl = "jdbc:mysql://${datasourceHost}:${datasourcePort}/${schema}"
     migrations = "db/migration,db/testdata"
     flywayVersion = "4.2.0"
+    generatedMapperSourcesDir = "${buildDir}/generated-src/mapstruct/main"
 }
 
 jar {
     baseName = applicationName
 
+}
+
+configurations {
+    mapstruct
+}
+
+sourceSets.main {
+    ext.originalJavaSrcDirs = java.srcDirs
+    java.srcDir "${generatedMapperSourcesDir}"
 }
 
 prepareDockerFile.applicationName = applicationName
@@ -41,6 +51,38 @@ project.ext['flyway.user'] = datasourceUsername
 project.ext['flyway.password'] = datasourcePassword
 project.ext['flyway.locations'] = migrations
 
+task generateMainMapperClasses(type: JavaCompile) {
+    ext.aptDumpDir = file( "build/tmp/apt/mapstruct" )
+    destinationDir = aptDumpDir
+
+    classpath = compileJava.classpath + configurations.mapstruct
+    source = sourceSets.main.originalJavaSrcDirs
+    ext.sourceDestDir = file generatedMapperSourcesDir
+
+    options.define(
+            compilerArgs: [
+                    "-nowarn",
+                    "-proc:only",
+                    "-encoding", "UTF-8",
+                    "-processor", "org.mapstruct.ap.MappingProcessor",
+                    "-s", sourceDestDir.absolutePath,
+                    "-source", 1.8,
+                    "-target", 1.8,
+            ]
+    );
+
+    inputs.dir source
+    outputs.dir generatedMapperSourcesDir
+    doFirst {
+        sourceDestDir.mkdirs()
+    }
+    doLast {
+        aptDumpDir.delete()
+    }
+}
+
+
+compileJava.dependsOn generateMainMapperClasses
 
 
 dependencies {
@@ -49,4 +91,6 @@ dependencies {
     compile "mysql:mysql-connector-java"
     compile "org.springframework.cloud:spring-cloud-starter-eureka"
     testCompile "com.h2database:h2:1.4.196"
+    compile "org.mapstruct:mapstruct:1.0.0.Final"
+    mapstruct 'org.mapstruct:mapstruct-processor:1.0.0.Final'
 }

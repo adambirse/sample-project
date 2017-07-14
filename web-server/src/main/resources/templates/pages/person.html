@@ -4,17 +4,27 @@
 
 <div layout:fragment="content">
     <h2> All the people</h2>
+    <div>
+        <a th:href="@{/person/add}" class="btn btn-primary">Add Person</a> &nbsp;
+    </div>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>First Name</th>
             <th>Surname</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="person : ${persons}">
             <td th:text="${person.firstName}">First name</td>
             <td th:text="${person.lastName}">Last name</td>
+            <td>
+                <a th:href="@{/person/edit/{id}(id=${person.id})}" class="btn btn-primary">Edit</a> &nbsp; &nbsp;
+                <form method="POST"  style="display:inline;" th:action="@{/person/delete/__${person.id}__}">
+                    <button type="submit" name="submit" value="value" class="btn btn-primary">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -1,18 +1,21 @@
 package com.birse.person;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/person")
 public class PersonController {
 
+    private static final Log LOG = LogFactory.getLog(PersonController.class);
     @Autowired
     PersonRepository repo;
+    @Autowired
+    PersonResourcePersonMapper mapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Person> getPerson(@PathVariable("id") Long id) {
@@ -25,8 +28,8 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Person>> all() {
-        return ResponseEntity.ok(repo.findAll());
+    public ResponseEntity<Iterable<PersonResource>> all() {
+        return ResponseEntity.ok(mapper.sourceToDestination(repo.findAll()));
     }
 
     @PostMapping
@@ -54,6 +57,5 @@ public class PersonController {
             return ResponseEntity.ok().body(null);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-
     }
 }
