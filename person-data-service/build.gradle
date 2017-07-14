@@ -91,6 +91,6 @@ dependencies {
     compile "mysql:mysql-connector-java"
     compile "org.springframework.cloud:spring-cloud-starter-eureka"
     testCompile "com.h2database:h2:1.4.196"
-    compile "org.mapstruct:mapstruct:1.0.0.Final"
-    mapstruct 'org.mapstruct:mapstruct-processor:1.0.0.Final'
+    compile "org.mapstruct:mapstruct:1.1.0.Final"
+    mapstruct 'org.mapstruct:mapstruct-processor:1.1.0.Final'
 }
