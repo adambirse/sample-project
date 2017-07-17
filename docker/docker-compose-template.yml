@@ -2,10 +2,18 @@ version: '3'
 services:
   person-service:
       image: @group@/person-service:@version@
+      healthcheck:
+        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
+        interval: 15s
+        timeout: 8s
       environment:
         - JAVA_OPTS= -Xmx200m
   person-data-service:
       image: @group@/person-data-service:@version@
+      healthcheck:
+        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
+        interval: 15s
+        timeout: 8s
       environment:
         - JAVA_OPTS= -Xmx200m
   discovery-service:
@@ -14,6 +22,10 @@ services:
         - "8761:8761"
   web-service:
       image: @group@/web-server:@version@
+      healthcheck:
+        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
+        interval: 15s
+        timeout: 8s
       ports:
         - "80:8080"
       environment:

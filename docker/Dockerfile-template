@@ -1,6 +1,7 @@
 FROM davidcaste/alpine-java-unlimited-jce:jdk8
 EXPOSE 8000
 EXPOSE 8080
+RUN apk --update add curl
 RUN addgroup -S springuser && adduser -S -g springuser springuser
 ENV JAVA_OPTS -Xmx300m
 ENV JMX_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8001 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
