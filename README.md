@@ -1,4 +1,6 @@
 # sample-project
+[![Build Status](https://travis-ci.org/adambirse/sample-project.svg?branch=master)](https://travis-ci.org/adambirse/sample-project)
+
 Sample getting started project for Gradle, Docker and Spring boot.  This project is intended to be a starter for ten for anyone looking to use the following technologies:
 
 - Gradle
