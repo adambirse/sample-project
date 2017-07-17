@@ -87,7 +87,10 @@ compileJava.dependsOn generateMainMapperClasses
 
 dependencies {
     compile "org.flywaydb:flyway-core:${flywayVersion}"
-    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile ("org.springframework.boot:spring-boot-starter-data-jpa") {
+        exclude module: 'tomcat-jdbc' //prefer hikari instead.
+    }
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.3'
     compile "mysql:mysql-connector-java"
     compile "org.springframework.cloud:spring-cloud-starter-eureka"
     testCompile "com.h2database:h2:1.4.196"
