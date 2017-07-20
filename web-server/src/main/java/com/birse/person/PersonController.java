@@ -1,5 +1,6 @@
 package com.birse.person;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,16 @@ public class PersonController {
     @Autowired
     PersonService service;
 
+    @HystrixCommand(fallbackMethod = "reliable")
     @GetMapping()
     public String people(Model model) {
         LOG.info("Loading all the people");
         model.addAttribute("persons", service.getPeople().getBody());
         return "pages/person";
+    }
+
+    public String reliable(Model model) {
+        return "pages/person-reliable";
     }
 
     @GetMapping("/add")

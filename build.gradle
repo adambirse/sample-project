@@ -87,6 +87,7 @@ subprojects {
         compile("org.springframework.boot:spring-boot-starter-web")
         compile("org.springframework.boot:spring-boot-starter-actuator")
         compile("org.springframework.boot:spring-boot-devtools")
+        compile('org.springframework.cloud:spring-cloud-starter-hystrix')
         compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '1.5.2'
         testCompile("org.springframework.boot:spring-boot-starter-test")
         testCompile("org.mockito:mockito-core:2.1.0")
