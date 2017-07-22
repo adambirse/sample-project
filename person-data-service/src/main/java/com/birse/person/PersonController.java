@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
 
     private static final Log LOG = LogFactory.getLog(PersonController.class);
+
     @Autowired
-    PersonRepository repo;
+    private PersonRepository repo;
+
     @Autowired
-    PersonResourcePersonMapper mapper;
+    private PersonResourcePersonMapper mapper;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Person> getPerson(@PathVariable("id") Long id) {
@@ -55,7 +57,8 @@ public class PersonController {
         if (repo.findOne(id) != null) {
             repo.delete(id);
             return ResponseEntity.ok().body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 }

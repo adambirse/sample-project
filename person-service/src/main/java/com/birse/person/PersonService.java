@@ -1,23 +1,27 @@
 package com.birse.person;
 
 import com.birse.service.BaseRestService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class PersonService extends BaseRestService {
 
-
+    @HystrixCommand(fallbackMethod = "getPeopleReliable")
     public ResponseEntity<List<PersonResource>> getPeople() {
         return restTemplate.exchange(getBaseUrl() + "/person",
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<PersonResource>>() {
                 });
+    }
+
+    public ResponseEntity<List<PersonResource>> getPeopleReliable() {
+        return ResponseEntity.ok(new ArrayList<PersonResource>());
     }
 
     public ResponseEntity<Void> delete(Long id) {
@@ -26,7 +30,7 @@ public class PersonService extends BaseRestService {
     }
 
     public ResponseEntity<PersonResource> getPerson(Long id) {
-        return restTemplate.exchange(getBaseUrl() + "/person/"+ id,
+        return restTemplate.exchange(getBaseUrl() + "/person/" + id,
                 HttpMethod.GET, null, new ParameterizedTypeReference<PersonResource>() {
                 });
     }
