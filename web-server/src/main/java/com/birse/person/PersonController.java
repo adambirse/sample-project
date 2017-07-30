@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/person")
@@ -37,17 +39,19 @@ public class PersonController {
     }
 
     @PostMapping("/add")
-    public String addPerson(@ModelAttribute PersonResource person) {
+    public View addPerson(@ModelAttribute PersonResource person) {
         LOG.info("Adding person: " + person.toString());
         service.add(person);
-        return "redirect:/person";
+        return redirect("/person/");
     }
 
+
+
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    public View delete(@PathVariable("id") Long id) {
         LOG.info("Deleting person with id = " + id);
         service.delete(id);
-        return "redirect:/person";
+        return redirect("/person");
     }
 
     @GetMapping("/edit/{id}")
@@ -58,9 +62,15 @@ public class PersonController {
     }
 
     @PostMapping("/edit")
-    public String editPerson(@ModelAttribute PersonResource person) {
+    public View editPerson(@ModelAttribute PersonResource person) {
         LOG.info("Editing person: " + person.toString());
         service.update(person);
-        return "redirect:/person";
+        return redirect("/person");
+    }
+
+    private View redirect(String url) {
+        RedirectView redirect = new RedirectView(url);
+        redirect.setExposeModelAttributes(false);
+        return redirect;
     }
 }
