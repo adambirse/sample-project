@@ -1,4 +1,4 @@
-package com.birse.web;
+package com.birse.web.config;
 
 import com.birse.web.VersionInterceptor;
 import org.springframework.context.annotation.Bean;

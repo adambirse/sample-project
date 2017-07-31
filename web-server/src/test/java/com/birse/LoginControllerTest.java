@@ -13,18 +13,18 @@ import static org.hamcrest.Matchers.is;
  * Created on 08/06/2017.
  */
 @RunWith(SpringRunner.class)
-public class HomeControllerTest {
+public class LoginControllerTest {
 
-    HomeController controller;
+    LoginController controller;
 
     @Before
     public void setup() {
-        controller = new HomeController();
+        controller = new LoginController();
     }
 
     @Test
     public void checkCorrectPageReturned() {
-        assertThat(controller.home(), is(equalTo("pages/home")));
+        assertThat(controller.login(), is(equalTo("login")));
     }
 
 }
