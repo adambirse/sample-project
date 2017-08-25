@@ -19,7 +19,7 @@ build.enabled = false;
 jar.enabled = false;
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.0.2'
+    gradleVersion = '4.1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
@@ -40,7 +40,6 @@ subprojects {
 
 
     task prepareDockerFile(type: Copy) {
-
         ext.applicationName = 'default-service-name'
         outputs.upToDateWhen { false }
         from '../docker/'

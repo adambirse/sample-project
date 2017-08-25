@@ -65,6 +65,7 @@ $RECYCLE.BIN/
 .idea/**
 .gradle/**
 **/build
+**/out
 
 docker/generated/*
 /out/
