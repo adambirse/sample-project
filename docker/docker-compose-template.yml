@@ -21,7 +21,7 @@ services:
       ports:
         - "8761:8761"
   web-service:
-      image: @group@/web-server:@version@
+      image: @group@/web-service:@version@
       healthcheck:
         test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
         interval: 15s

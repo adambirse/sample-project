@@ -1,0 +1,9 @@
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${discovery_service_name}:8761/eureka/
+    instance:
+        preferIpAddress: true
+spring:
+    application:
+        name: ${project.applicationName}

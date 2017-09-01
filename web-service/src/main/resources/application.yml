@@ -1,0 +1,22 @@
+endpoints:
+    enabled: true
+    sensitive: false
+info:
+    version: ${project.version}
+logging:
+    level:
+        com:
+            birse: DEBUG
+        org:
+            springframework:
+                web: INFO
+person:
+    service:
+        url: ${person_service_name}
+spring:
+    boot:
+        admin:
+            client:
+                service-url: http://web-service:8080
+            url: http://admin:8123
+version: ${project.version}

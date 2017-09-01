@@ -1,0 +1,23 @@
+endpoints:
+    enabled: true
+    sensitive: false
+flyway:
+    locations: ${project.migrations}
+info:
+    version: ${project.version}
+spring:
+    boot:
+        admin:
+            client:
+                service-url: http://${person_data_service_name}:8080
+            url: http://admin:8123
+    datasource:
+        password: ${project.datasourcePassword}
+        test-on-borrow: true
+        type: com.zaxxer.hikari.HikariDataSource
+        url: ${project.datasourceUrl}
+        username: ${project.datasourceUsername}
+        validation-query: SELECT 1
+    jpa:
+        hibernate:
+            ddlauto: validate
