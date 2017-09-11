@@ -23,7 +23,7 @@ This application consists of the following (deployed as docker containers):
 - Spring boot admin console
 - mysql database
 - web server serving thymeleaf pages
-- web service (Discovery client, REST)
+- web service (Discovery client, REST, HTTPS)
 - data service (Discovery client, REST)
 
 ## Gradle Integration
@@ -49,5 +49,17 @@ As this project evolves I aim to add the following:
 - Anything else that might be useful for those starting a new project.
 
 Please feel free to get in touch and to make contributions.
+
+## Getting Started
+
+In order to use this application over https it is necessary to have a certificate. The instructions to generate a self-signed one can be taken from this  [page](https://drissamri.be/blog/java/enable-https-in-spring-boot/).
+
+Please remember that self signed certificates should *NEVER* be used on production.
+
+`keytool -genkey -alias tomcat -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650`
+
+The generated certificate should be placed on the class path `src/main/resources`  the location defined in web-service yml file.
+
+
 
 

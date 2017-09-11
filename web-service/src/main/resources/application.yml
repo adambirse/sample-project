@@ -1,6 +1,11 @@
 endpoints:
     enabled: true
     sensitive: false
+management:
+    port: 8080
+    ssl:
+     enabled: false
+
 info:
     version: ${project.version}
 logging:
@@ -20,3 +25,10 @@ spring:
                 service-url: http://web-service:8080
             url: http://admin:8123
 version: ${project.version}
+server:
+    port: 8443
+    ssl:
+        key-store: classpath:keystore.p12
+        key-store-password: password
+        keyAlias: tomcat
+        keyStoreType: PKCS12
