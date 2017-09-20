@@ -5,7 +5,8 @@ RUN apk --update add curl
 RUN addgroup -S springuser && adduser -S -g springuser springuser
 ENV JAVA_OPTS -Xmx300m
 ENV JMX_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8001 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
-
+RUN mkdir /tomcat-server
+RUN chown -R springuser:springuser /tomcat-server
 ADD @app_name@-@version@.jar app.jar
 USER springuser
 ENTRYPOINT exec java $JAVA_OPTS $JMX_OPTS -jar app.jar

@@ -32,3 +32,8 @@ server:
         key-store-password: password
         keyAlias: tomcat
         keyStoreType: PKCS12
+    tomcat:
+        basedir: tomcat-server
+        accesslog:
+            enabled: true
+            pattern: '%h %v %D %T %B %l %u %t "%r" %s %b'

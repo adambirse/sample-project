@@ -20,3 +20,9 @@ spring:
             client:
                 service-url: http://${person_service_name}:8080
             url: http://admin:8123
+server:
+    tomcat:
+        basedir: tomcat-server
+        accesslog:
+            enabled: true
+            pattern: '%h %v %D %T %B %l %u %t "%r" %s %b'
