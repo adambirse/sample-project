@@ -1,19 +1,19 @@
-version: '3'
+version: '2'
 services:
   person-service:
       image: @group@/person-service:@version@
-      healthcheck:
-        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
-        interval: 15s
-        timeout: 8s
+#      healthcheck:
+#        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
+#        interval: 15s
+#        timeout: 8s
       environment:
         - JAVA_OPTS= -Xmx200m
   person-data-service:
       image: @group@/person-data-service:@version@
-      healthcheck:
-        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
-        interval: 15s
-        timeout: 8s
+#      healthcheck:
+#        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
+#        interval: 15s
+#        timeout: 8s
       environment:
         - JAVA_OPTS= -Xmx200m
   discovery-service:
@@ -22,11 +22,42 @@ services:
         - "8761:8761"
   web-service:
       image: @group@/web-service:@version@
-      healthcheck:
-        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
-        interval: 15s
-        timeout: 8s
+#      healthcheck:
+#        test: ["CMD", "curl", "-f",  "http://localhost:8080/health"]
+#        interval: 15s
+#        timeout: 8s
       ports:
         - "443:8443"
       environment:
         - JAVA_OPTS= -Xmx200m
+
+  elasticsearch:
+      build: ../../elasticsearch/
+      volumes:
+        - ../../elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+      environment:
+        ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+
+  logstash:
+      build: ../../logstash/
+      volumes:
+        - ../../logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+        - ../../logstash/pipeline:/usr/share/logstash/pipeline
+      ports:
+        - "5000:5000"
+      environment:
+        LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      depends_on:
+        - elasticsearch
+
+  kibana:
+      build: ../../kibana/
+      volumes:
+        - ../../kibana/config/:/usr/share/kibana/config
+      ports:
+        - "5601:5601"
+      depends_on:
+        - elasticsearch
