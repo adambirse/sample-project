@@ -19,7 +19,7 @@ build.enabled = false;
 jar.enabled = false;
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.2.1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
@@ -87,9 +87,9 @@ subprojects {
         compile("org.springframework.boot:spring-boot-starter-actuator")
         compile("org.springframework.boot:spring-boot-devtools")
         compile('org.springframework.cloud:spring-cloud-starter-hystrix')
-        compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '1.5.2'
+        compile('de.codecentric:spring-boot-admin-starter-client:1.5.4')
         testCompile("org.springframework.boot:spring-boot-starter-test")
-        testCompile("org.mockito:mockito-core:2.1.0")
+        testCompile("org.mockito:mockito-core:2.11.0")
         testCompile("org.hamcrest:hamcrest-all:1.3")
     }
 
@@ -112,10 +112,10 @@ buildscript {
 
     ext {
         springCloudVersion = 'Camden.SR5'
-        springBootVersion = '1.5.4.RELEASE'
+        springBootVersion = '1.5.8.RELEASE'
         dockerComposeVersion = '0.4.5'
         dockerBuildVersion = '1.2'
-        owaspVersion = '2.0.1'
+        owaspVersion = '3.0.0'
         dependencyCheckVersion = '0.15.0'
         asciiDoctorVersion = '1.5.3'
     }
@@ -132,7 +132,6 @@ buildscript {
         classpath "org.owasp:dependency-check-gradle:$owaspVersion"
         classpath "org.asciidoctor:asciidoctor-gradle-plugin:$asciiDoctorVersion"
     }
-
 }
 
 apply plugin: 'docker-compose'
