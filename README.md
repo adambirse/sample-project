@@ -14,6 +14,7 @@ In addition it adds features to aid in the development of a production grade pro
 - Support for flyway
 - OWASP dependency check
 - Rest documentation
+- ELK integration
 
 ## Architecture
 
@@ -25,6 +26,7 @@ This application consists of the following (deployed as docker containers):
 - web server serving thymeleaf pages
 - web service (Discovery client, REST, HTTPS)
 - data service (Discovery client, REST)
+- ELK Stack (Exposed on http://<DOCKER_MACHINE_IP>:5601/app/kibana
 
 ## Gradle Integration
 

@@ -19,7 +19,7 @@
                         {
                         <!-- we can add some custom fields to be sent with all the log entries.-->
                         <!--make filtering easier in Logstash-->
-                        "appName": "web-service",
+                        "appName": "person-data-service",
                         "appVersion": "1.0"
                         }
                     </pattern>
