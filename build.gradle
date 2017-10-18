@@ -139,7 +139,7 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'org.owasp.dependencycheck'
 
 dockerCompose {
-    useComposeFiles = ['docker/generated/docker-compose.yml', 'docker/generated/docker-compose-dev.yml']
+    useComposeFiles = ['docker/generated/docker-compose.yml', 'docker/generated/docker-compose-dev.yml', 'docker/docker-compose-elk.yml']
     removeContainers = false
     removeImages = "Local"
     removeVolumes = false
